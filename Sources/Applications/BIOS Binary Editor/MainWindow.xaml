@@ -1,22 +1,12 @@
-﻿<!--
-    Apache 2.0  - 2016-2021
-    Author : Derek Tremblay (derektremblay666@gmail.com)
--->
-
-<Window
-    x:Class="WPFHexaEditorExample.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:control="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:properties="clr-namespace:WPFHexaEditorExample.Properties"
-    Title="Wpf HexEditor control sample"
-    Width="900"
-    Height="530"
-    Closing="Window_Closing"
-    Icon="Resources/Icon/Logo-Icon.ico"
-    mc:Ignorable="d">
+﻿<Window x:Class="BIOS_Binary_Editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BIOS_Binary_Editor"
+        xmlns:control="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -25,28 +15,36 @@
                     Header="File"
                     RenderTransformOrigin="0.656,0.769">
                     <MenuItem
+                        x:Name="NewMenu"
+                        Click="NewMenu_Click"
+                        Header="New...">
+                        <!--<MenuItem.Icon>
+                            <Image Source="./Resources/Icon/New-File-Icon.ico" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                    <MenuItem
                         x:Name="OpenMenu"
                         Click="OpenMenu_Click"
                         Header="Open...">
-                        <MenuItem.Icon>
+                        <!--<MenuItem.Icon>
                             <Image Source="./Resources/Icon/Open-File-Icon.ico" />
-                        </MenuItem.Icon>
+                        </MenuItem.Icon>-->
                     </MenuItem>
                     <Separator />
                     <MenuItem
                         x:Name="SaveMenu"
                         Click="SaveMenu_Click"
                         Header="Save">
-                        <MenuItem.Icon>
+                        <!--<MenuItem.Icon>
                             <Image Source="./Resources/Icon/Save-Icon.ico" />
-                        </MenuItem.Icon>
+                        </MenuItem.Icon>-->
                     </MenuItem>
                     <MenuItem
                         Click="SaveAsMenu_Click"
                         Header="Save as..."
                         IsEnabled="True" />
                     <Separator />
-                    <MenuItem
+                    <!--<MenuItem
                         x:Name="CloseFileMenu"
                         Click="CloseFileMenu_Click"
                         Header="Close file" />
@@ -54,17 +52,263 @@
                         x:Name="CloseAllFileMenu"
                         Click="CloseAllFileMenu_Click"
                         Header="Close all files">
-                        <MenuItem.Icon>
+                        --><!--<MenuItem.Icon>
                             <Image Source="./Resources/Icon/Close-Icon.ico" />
-                        </MenuItem.Icon>
+                        </MenuItem.Icon>--><!--
                     </MenuItem>
-                    <Separator />
+                    <Separator />-->
                     <MenuItem
                         x:Name="ExitMenu"
                         Click="ExitMenu_Click"
                         Header="Exit" />
                 </MenuItem>
-                <MenuItem Header="Edit">
+                <MenuItem Header="Load Banks">
+                    <MenuItem
+                        x:Name="ReplaceBank0"
+                        Click="ReplaceBank0_Click"
+                        Header="Replace Bank 0..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank1"
+                        Click="ReplaceBank1_Click"
+                        Header="Replace Bank 1..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank2"
+                        Click="ReplaceBank2_Click"
+                        Header="Replace Bank 2..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank3"
+                        Click="ReplaceBank3_Click"
+                        Header="Replace Bank 3..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank4"
+                        Click="ReplaceBank4_Click"
+                        Header="Replace Bank 4..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank5"
+                        Click="ReplaceBank5_Click"
+                        Header="Replace Bank 5..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank6"
+                        Click="ReplaceBank6_Click"
+                        Header="Replace Bank 6..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank7"
+                        Click="ReplaceBank7_Click"
+                        Header="Replace Bank 7..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank8"
+                        Click="ReplaceBank8_Click"
+                        Header="Replace Bank 8..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBank9"
+                        Click="ReplaceBank9_Click"
+                        Header="Replace Bank 9..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankA"
+                        Click="ReplaceBankA_Click"
+                        Header="Replace Bank A..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankB"
+                        Click="ReplaceBankB_Click"
+                        Header="Replace Bank B..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankC"
+                        Click="ReplaceBankC_Click"
+                        Header="Replace Bank C..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankD"
+                        Click="ReplaceBankD_Click"
+                        Header="Replace Bank D..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankE"
+                        Click="ReplaceBankE_Click"
+                        Header="Replace Bank E..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ReplaceBankF"
+                        Click="ReplaceBankF_Click"
+                        Header="Replace Bank F..."
+                        IsEnabled="False"/>
+                </MenuItem>
+                <MenuItem Header="Clear Banks">
+                    <MenuItem
+                        x:Name="ClearBank0"
+                        Click="ClearBank0_Click"
+                        Header="Clear Bank 0..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank1"
+                        Click="ClearBank1_Click"
+                        Header="Clear Bank 1..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank2"
+                        Click="ClearBank2_Click"
+                        Header="Clear Bank 2..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank3"
+                        Click="ClearBank3_Click"
+                        Header="Clear Bank 3..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank4"
+                        Click="ClearBank4_Click"
+                        Header="Clear Bank 4..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank5"
+                        Click="ClearBank5_Click"
+                        Header="Clear Bank 5..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank6"
+                        Click="ClearBank6_Click"
+                        Header="Clear Bank 6..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank7"
+                        Click="ClearBank7_Click"
+                        Header="Clear Bank 7..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank8"
+                        Click="ClearBank8_Click"
+                        Header="Clear Bank 8..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBank9"
+                        Click="ClearBank9_Click"
+                        Header="Clear Bank 9..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankA"
+                        Click="ClearBankA_Click"
+                        Header="Clear Bank A..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankB"
+                        Click="ClearBankB_Click"
+                        Header="Clear Bank B..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankC"
+                        Click="ClearBankC_Click"
+                        Header="Clear Bank C..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankD"
+                        Click="ClearBankD_Click"
+                        Header="Clear Bank D..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankE"
+                        Click="ClearBankE_Click"
+                        Header="Clear Bank E..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ClearBankF"
+                        Click="ClearBankF_Click"
+                        Header="Clear Bank F..."
+                        IsEnabled="False"/>
+                </MenuItem>
+                <MenuItem Header="Show Banks">
+                    <MenuItem
+                        x:Name="ShowBank0"
+                        Click="ShowBank0_Click"
+                        Header="Show Bank 0..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank1"
+                        Click="ShowBank1_Click"
+                        Header="Show Bank 1..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank2"
+                        Click="ShowBank2_Click"
+                        Header="Show Bank 2..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank3"
+                        Click="ShowBank3_Click"
+                        Header="Show Bank 3..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank4"
+                        Click="ShowBank4_Click"
+                        Header="Show Bank 4..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank5"
+                        Click="ShowBank5_Click"
+                        Header="Show Bank 5..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank6"
+                        Click="ShowBank6_Click"
+                        Header="Show Bank 6..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank7"
+                        Click="ShowBank7_Click"
+                        Header="Show Bank 7..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank8"
+                        Click="ShowBank8_Click"
+                        Header="Show Bank 8..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBank9"
+                        Click="ShowBank9_Click"
+                        Header="Show Bank 9..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankA"
+                        Click="ShowBankA_Click"
+                        Header="Show Bank A..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankB"
+                        Click="ShowBankB_Click"
+                        Header="Show Bank B..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankC"
+                        Click="ShowBankC_Click"
+                        Header="Show Bank C..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankD"
+                        Click="ShowBankD_Click"
+                        Header="Show Bank D..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankE"
+                        Click="ShowBankE_Click"
+                        Header="Show Bank E..."
+                        IsEnabled="False"/>
+                    <MenuItem
+                        x:Name="ShowBankF"
+                        Click="ShowBankF_Click"
+                        Header="Show Bank F..."
+                        IsEnabled="False"/>
+                </MenuItem>
+                <!--<MenuItem Header="Edit">
                     <MenuItem
                         x:Name="UndoMenu"
                         Click="UndoMenu_Click"
@@ -150,8 +394,8 @@
                             Click="CTableTBLDefaultASCIIButton_Click"
                             Header="Load Build-in TBL : ASCII" />
                     </MenuItem>
-                </MenuItem>
-                <MenuItem x:Name="PositionMenu" Header="Position">
+                </MenuItem>-->
+                <!--<MenuItem x:Name="PositionMenu" Header="Position">
                     <StackPanel Margin="0" Orientation="Horizontal">
                         <Label Width="100" Content="BytePerline" />
                         <TextBox
@@ -191,9 +435,9 @@
                             Width="96"
                             Height="22" />
                     </StackPanel>
-                </MenuItem>
+                </MenuItem>-->
 
-                <MenuItem x:Name="ViewMenu" Header="View">
+                <!--<MenuItem x:Name="ViewMenu" Header="View">
                     <MenuItem
                         Header="Header"
                         IsCheckable="True"
@@ -214,11 +458,8 @@
                         Header="Status bar"
                         IsCheckable="True"
                         IsChecked="{Binding ElementName=HexEdit, Path=StatusBarVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityToBoolConverter}}" />
-                    <!--<MenuItem Header="Byte spacer visual">
-
-                    </MenuItem>-->
-                </MenuItem>
-                <MenuItem x:Name="OptionMenu" Header="Options">
+                </MenuItem>-->
+                <!--<MenuItem x:Name="OptionMenu" Header="Options">
                     <MenuItem
                         Header="Allow context menu"
                         IsCheckable="True"
@@ -300,68 +541,16 @@
                         Minimum="0.5"
                         ToolTip="Zoom editor (50% to 200%)"
                         Value="{Binding ElementName=HexEdit, Path=ZoomScale}" />
-                </MenuItem>
+                </MenuItem>-->
             </Menu>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TabControl
-                    x:Name="FileTab"
-                    Grid.Row="0"
-                    Margin="2,0"
-                    SelectionChanged="FileTab_SelectionChanged">
-                    <TabControl.Resources>
-                        <Style TargetType="TabItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="TabItem">
-                                        <Border
-                                            Name="Border"
-                                            Margin="2,0"
-                                            BorderBrush="Gainsboro"
-                                            BorderThickness="1,1,1,0"
-                                            CornerRadius="4,4,0,0">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image
-                                                    Width="20"
-                                                    Height="16"
-                                                    MouseUp="Image_MouseUp"
-                                                    Opacity="0.5"
-                                                    Source="./Resources/Icon/Close-Icon.ico"
-                                                    ToolTip="Close" />
-                                                <ContentPresenter
-                                                    x:Name="ContentSite"
-                                                    Margin="10,2"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    ContentSource="Header" />
-                                            </StackPanel>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
-                                            </Trigger>
-                                            <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </TabControl.Resources>
-                </TabControl>
-
-                <control:HexEditor
+            <control:HexEditor
                     x:Name="HexEdit"
                     Grid.Row="1"
                     Width="Auto"
                     Height="Auto"
                     Margin="2"
+                    ZoomScale="1.25"
                     AllowByteCount="False"
                     AllowCustomBackgroundBlock="True"
                     AllowDrop="True"
@@ -369,7 +558,6 @@
                     AppendNeedConfirmation="True"
                     BorderThickness="1"
                     ByteGrouping="FourByte"
-                    ByteShiftLeft="{Binding LongValue, ElementName=HbBsl, UpdateSourceTrigger=PropertyChanged}"
                     ByteSpacerPositioning="HexBytePanel"
                     ByteSpacerVisualStyle="Dash"
                     ByteSpacerWidthTickness="Normal"
@@ -380,10 +568,8 @@
                     OffSetStringFixedWidthVisual="Fixed"
                     OffSetPanelFixedWidthVisual="Fixed"
                     PreloadByteInEditorMode="MaxScreenVisibleLineAtDataLoad"
-                    VisualCaretMode="Overwrite" />
-
-            </Grid>
-
+                    VisualCaretMode="Overwrite"
+                    CanInsertAnywhere="True" />
         </DockPanel>
     </Grid>
 </Window>

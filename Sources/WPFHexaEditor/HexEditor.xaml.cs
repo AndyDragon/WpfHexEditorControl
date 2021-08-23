@@ -706,6 +706,24 @@ namespace WpfHexaEditor
                 }));
 
         /// <summary>
+        /// Get or set if the visual of line info string width are dynamic or fixed
+        /// </summary>
+        public OffSetPanelFixedWidth OffSetStringFixedWidthVisual
+        {
+            get => (OffSetPanelFixedWidth)GetValue(OffSetStringFixedWidthVisualProperty);
+            set => SetValue(OffSetStringFixedWidthVisualProperty, value);
+        }
+
+        public static readonly DependencyProperty OffSetStringFixedWidthVisualProperty =
+            DependencyProperty.Register(nameof(OffSetStringFixedWidthVisual), typeof(OffSetPanelFixedWidth), typeof(HexEditor),
+                new FrameworkPropertyMetadata(OffSetPanelFixedWidth.Dynamic, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
+                {
+                    if (d is not HexEditor ctrl || e.NewValue == e.OldValue) return;
+
+                    ctrl.UpdateLinesInfo();
+                }));
+
+        /// <summary>
         /// Visually change de state of the byte
         /// </summary>
         public DataVisualState DataStringState
@@ -3269,7 +3287,7 @@ namespace WpfHexaEditor
                         l.FontWeight = FontWeights.Bold;
                         l.Foreground = ForegroundHighLightOffSetHeaderColor;
                         l.ToolTip = $"{Properties.Resources.FirstByteString} : {SelectionStart}";
-                        l.Tag = $"0x{LongToHex(SelectionStart).ToUpperInvariant()}";
+                        l.Tag = $"0x{LongToHex(SelectionStart, OffSetStringFixedWidthVisual).ToUpperInvariant()}";
                         actualPosition = SelectionStart;
                     }
                     else
@@ -3277,7 +3295,7 @@ namespace WpfHexaEditor
                         l.FontWeight = FontWeights.Normal;
                         l.Foreground = ForegroundOffSetHeaderColor;
                         l.ToolTip = $"{Properties.Resources.FirstByteString} : {firstByteInLine}";
-                        l.Tag = $"0x{LongToHex(firstByteInLine).ToUpperInvariant()}";
+                        l.Tag = $"0x{LongToHex(firstByteInLine, OffSetStringFixedWidthVisual).ToUpperInvariant()}";
 
                         actualPosition = firstByteInLine;
                     }
@@ -5699,5 +5717,18 @@ namespace WpfHexaEditor
             RefreshView();
         }
         #endregion
+
+        /// <summary>
+        /// Insert an array of byte at specified position
+        /// </summary>
+        public void ReplaceBytes(byte[] bytes, long bytePositionInStream)
+        {
+            if (!CheckIsOpen(_provider)) return;
+            if (!CanInsertAnywhere) return;
+
+            _provider.PasteNotInsert(bytePositionInStream, bytes);
+
+            RefreshView();
+        }
     }
 }
