@@ -652,6 +652,20 @@ namespace WpfHexaEditor
             DependencyProperty.Register(nameof(OffSetPanelFixedWidthVisual), typeof(OffSetPanelFixedWidth), typeof(HexEditor),
                 new FrameworkPropertyMetadata(OffSetPanelFixedWidth.Dynamic, OffSetPanelVisual_PropertyChanged));
 
+
+        /// <summary>
+        /// Get or set the offset base, which is added to all offsets before they are displayed
+        /// </summary>
+        public long OffsetBase
+        {
+            get => (long)GetValue(OffsetBaseProperty);
+            set => SetValue(OffsetBaseProperty, value);
+        }
+
+        public static readonly DependencyProperty OffsetBaseProperty =
+            DependencyProperty.Register(nameof(OffsetBase), typeof(long), typeof(HexEditor),
+                new FrameworkPropertyMetadata(0L, OffSetPanelVisual_PropertyChanged));
+
         /// <summary>
         /// Get or set of the tooltip are shown over the IByteControl
         /// </summary>
@@ -1041,7 +1055,11 @@ namespace WpfHexaEditor
             if (_provider.ReadOnlyMode) return;
 
             if (sender is IByteControl ctrl)
+            {
                 ModifyByte(ctrl.Byte.Byte[e.Index], ctrl.BytePositionInStream + e.Index);
+
+                e.BytePositionInStream = ctrl.BytePositionInStream;
+            }
 
             BytesModified?.Invoke(this, e);
         }
@@ -2110,14 +2128,7 @@ namespace WpfHexaEditor
             //Refresh stream
             if (!CheckIsOpen(_provider)) return;
 
-            using (var stream = new MemoryStream())
-            {
-                _provider.Position = 0;
-                _provider.Stream.CopyTo(stream);
-
-                CloseProvider();
-                OpenStream(stream);
-            }
+            RefreshView(true);
 
             ChangesSubmited?.Invoke(this, new EventArgs());
         }
@@ -3284,6 +3295,8 @@ namespace WpfHexaEditor
 
                         actualPosition = firstByteInLine;
                     }
+
+                    actualPosition += OffsetBase;
 
                     //update the visual
                     switch (OffSetStringVisual)
